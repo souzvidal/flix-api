@@ -29,10 +29,18 @@ def genre_detail_view(request, pk):
             data,
             status=200
         )
+
     elif request.method == 'PUT':
         data = json.loads(request.body.decode('utf-8'))
         genre.name = data['name']
         genre.save()
         return JsonResponse(
             {'id': genre.id, 'name': genre.name}
+        )
+
+    elif request.method == 'DELETE':
+        genre.delete()
+        return JsonResponse(
+            {'message': 'Gênero excluído com sucesso'},
+            status=204
         )
